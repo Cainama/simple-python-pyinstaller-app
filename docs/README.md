@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y docker-ce-cli
 USER jenkins
 RUN jenkins-plugin-cli --plugins "blueocean:1.27.9 docker-workflow:572.v950f58993843"
 ```
-y posteriormente creamos la imagen con
+y posteriormente creamos la imagen con  
 `docker build -t myjenkins-blueocean .`
 
 ![img01](https://github.com/Zixort/simple-python-pyinstaller-app/blob/main/docs/img/img01.png)
@@ -129,10 +129,10 @@ resource "docker_container" "jenkins_blueocean" {
   }
 }
 ```
-Posteriormente, ejecutaremos ese archivo con
-`terraform apply`
-y comprobaremos que se ha levantado todo con
-`terraform show`
+Posteriormente, ejecutaremos ese archivo con  
+`terraform apply`  
+y comprobaremos que se ha levantado todo con  
+`terraform show`  
 
 ![img02](https://github.com/Zixort/simple-python-pyinstaller-app/blob/main/docs/img/img02.png)
 
@@ -140,20 +140,20 @@ y comprobaremos que se ha levantado todo con
 # Ejecución del pipeline
 
 ## Configuración y acceso a Jenkins
-Una vez hayamos levantado la infraestructura, tenemos que acceder al contenedor de Jenkins para poder ejecutar la pipeline. Para ello, primero usaremos
-`docker logs jenkins-blueocean`
-y buscaremos la contraseña de administrador generada automáticamente por Jenkins. Esto nos servirá para acceder a localhost:8080 e introducir la contraseña
+Una vez hayamos levantado la infraestructura, tenemos que acceder al contenedor de Jenkins para poder ejecutar la pipeline. Para ello, primero usaremos  
+`docker logs jenkins-blueocean`  
+y buscaremos la contraseña de administrador generada automáticamente por Jenkins. Esto nos servirá para acceder a http://localhost:8080 e introducir la contraseña.
 
 ![img03](https://github.com/Zixort/simple-python-pyinstaller-app/blob/main/docs/img/img03.png)
 
 ![img04](https://github.com/Zixort/simple-python-pyinstaller-app/blob/main/docs/img/img04.png)
 
-Una vez seamos bienvenidos por Jenkins, debemos reiniciar parte de la infraestructura con un
-`terraform apply`
-Con esto reiniciaremos Jenkins y haremos que los plugins recién instalados sean funcionales.
+Una vez seamos bienvenidos por Jenkins, debemos reiniciar parte de la infraestructura con un  
+`terraform apply`  
+Con esto reiniciaremos Jenkins y haremos que los plugins recién instalados sean funcionales.  
 
 ## Preparación del entorno
-Vamos a usar el pipeline para hacer un despliegue de un Source Control Manager, en este caso, Github. Nos vamos al repositorio que nos indica el tutorial y creamos un fork. No documento tanto esta parte, dado que la hice a través del navegador. Una vez en nuestro fork, creamos una rama `main` y dentro de ella, editamos el archivo `jenkins/Jenkinsfile` con nuestro contenido, en este caso:
+Vamos a usar el pipeline para hacer un despliegue desde un Source Control Manager, en este caso, Github. Nos vamos al repositorio que nos indica el tutorial y creamos un fork. No documento tanto esta parte, dado que la hice a través del navegador. Una vez en nuestro fork, creamos una rama `main` y dentro de ella, editamos el archivo `jenkins/Jenkinsfile` con nuestro contenido, en este caso:
 ```
 pipeline {
     agent none
@@ -233,6 +233,6 @@ Una vez finalizado, pulsamos _Guardar_.
 
 Para construir la pipeline, tan solo tenemos que pulsar _Construir Ahora_ en el panel de la izquierda.
 
-Una vez finalizada, pulsaremos _Open in Blue Ocean_, pulsaremos la pestaña _Pipelines_ seleccionaremos nuestra pipeline y pulsaremos _Iniciar_. Una vez hecho, podremos acceder al resultado pulsando en la fila, que nos mostrará logs más detallados de cada paso de cada etapa.
+Una vez finalizada, pulsaremos _Open in Blue Ocean_, pulsaremos la pestaña _Pipelines_, seleccionaremos nuestra pipeline y pulsaremos _Iniciar_. Una vez hecho, podremos acceder al resultado pulsando en la fila, que nos mostrará logs más detallados de cada paso de cada etapa.
 
 ![img10](https://github.com/Zixort/simple-python-pyinstaller-app/blob/main/docs/img/img10.png)
